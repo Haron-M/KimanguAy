@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — SDA Youth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SDA YOUTH</div>
+        <button class="hamburger">☰</button>
+    </nav>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active"><a href="dashboard.html">🏠 Home</a></li>
+                <li><a href="bible.html">📖 Bible Quiz & Study</a></li>
+                <li><a href="prayer.html">🙏 Prayer Wall</a></li>
+                <li><a href="finance.html">💰 Financial Transparency</a></li>
+                <li><a href="admin.html">⚙️ Admin / Treasurer</a></li>
+                <li><a href="homepage.html" onclick="logout()">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <h2 id="welcomeHeading">Good morning 👋</h2>
+
+            <div class="dashboard-grid">
+                <div class="metric-card">
+                    <h3>Daily Devotion</h3>
+                    <p style="margin: 10px 0;">Today's devotion is ready.</p>
+                    <a href="#" class="btn btn-primary">READ DEVOTION</a>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Current Streak</h3>
+                    <div class="metric-value">8 Days 🔥</div>
+                    <p>Active Reading Challenge</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Youth Dept Balance</h3>
+                    <div class="metric-value" id="dashBalance">KSh 0</div>
+                    <a href="finance.html" class="btn btn-secondary">VIEW FINANCES</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

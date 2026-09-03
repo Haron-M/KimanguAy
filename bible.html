@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Quiz — SDA Youth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SDA YOUTH</div>
+    </nav>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">🏠 Home</a></li>
+                <li class="active"><a href="bible.html">📖 Bible Quiz & Study</a></li>
+                <li><a href="finance.html">💰 Financial Transparency</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <h2>SDA Youth Bible Quiz</h2>
+                <hr style="margin: 15px 0;">
+                <div id="quizContainer">
+                    <h3 id="questionText">Loading question...</h3>
+                    <div id="optionsContainer"
+                        style="display: flex; flex-direction: column; gap: 10px; margin: 20px 0;"></div>
+                    <button id="nextBtn" onclick="nextQuestion()" class="btn btn-primary" style="display: none;">Next
+                        Question</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        const questions = [
+            { q: "Who was the first king of Israel?", opts: ["David", "Saul", "Solomon", "Samuel"], ans: 1 },
+            { q: "What is the 4th commandment in the Decalogue?", opts: ["Honor parents", "Do not steal", "Remember the Sabbath", "No other gods"], ans: 2 }
+        ];
+        let currentIdx = 0, score = 0;
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('questionText').innerText = `Q${currentIdx + 1}: ${q.q}`;
+            const optsDiv = document.getElementById('optionsContainer');
+            optsDiv.innerHTML = '';
+            document.getElementById('nextBtn').style.display = 'none';
+
+            q.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-secondary';
+                btn.innerText = opt;
+                btn.onclick = () => selectOption(idx, q.ans);
+                optsDiv.appendChild(btn);
+            });
+        }
+
+        function selectOption(selected, correct) {
+            if (selected === correct) score++;
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < questions.length) loadQuestion();
+            else {
+                document.getElementById('quizContainer').innerHTML = `<h3>Quiz Complete!</h3><p>Your Score: ${score} / ${questions.length}</p>`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadQuestion);
+    </script>
+</body>
+
+</html>

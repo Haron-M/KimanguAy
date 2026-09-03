@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDA Youth Ministry — Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="demo-banner">DEMO MODE: Prototype using LocalStorage engine</div>
+
+    <nav class="navbar">
+        <div class="nav-brand">SDA YOUTH</div>
+        <button class="hamburger" aria-label="Toggle Navigation">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="bible.html">Bible Quiz</a></li>
+            <li><a href="finance.html">Finances</a></li>
+            <li><a href="login.html" class="btn btn-secondary">Login</a></li>
+            <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <header
+        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=80') center/cover; color: white; padding: 100px 20px; text-align: center;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 15px;">Growing in Faith. Living with Purpose. Serving Others.</h1>
+        <p style="max-width: 650px; margin: 0 auto 25px auto; font-size: 1.1rem;">A modern digital community designed to
+            help SDA youth grow spiritually, connect with others, participate in ministry, and serve their communities.
+        </p>
+        <div style="gap: 15px; display: flex; justify-content: center;">
+            <a href="signup.html" class="btn btn-primary">JOIN THE COMMUNITY</a>
+            <a href="#about" class="btn btn-secondary">EXPLORE</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+        <section id="about" class="card">
+            <h2>Daily Bible Verse</h2>
+            <blockquote style="font-style: italic; color: var(--primary-color); font-size: 1.2rem; margin: 15px 0;">
+                "Don't let anyone look down on you because you are young, but set an example for the believers in
+                speech, in conduct, in love, in faith and in purity."
+            </blockquote>
+            <p>— 1 Timothy 4:12 (NIV)</p>
+        </section>
+
+        <section class="card">
+            <h2>Youth Programs</h2>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div style="background: var(--background-light); padding: 15px; border-radius: 8px;">
+                    <h3>Adventist Youth (AY)</h3>
+                    <p>Sabbath afternoon fellowship, leadership development, and spiritual discussions.</p>
+                </div>
+                <div style="background: var(--background-light); padding: 15px; border-radius: 8px;">
+                    <h3>Ambassadors</h3>
+                    <p>Targeted discipleship and community service for senior youth and young adults.</p>
+                </div>
+                <div style="background: var(--background-light); padding: 15px; border-radius: 8px;">
+                    <h3>Public Campus Ministry</h3>
+                    <p>Connecting and building faith communities for students on university campuses.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
