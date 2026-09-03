@@ -4,69 +4,934 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDA Youth Ministry — Home</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SDA Youth Ministry — Growing in Faith, Living with Purpose</title>
+    <style>
+        /* ==========================================================================
+       1. VARIABLES & RESET
+       ========================================================================== */
+        :root {
+            --primary-color: #2E7D32;
+            --primary-hover: #1B5E20;
+            --secondary-color: #81C784;
+            --accent-gold: #FBC02D;
+            --accent-gold-hover: #F57F17;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --bg-light: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+       2. REUSABLE COMPONENTS
+       ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.45);
+        }
+
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: var(--text-dark);
+            box-shadow: 0 4px 14px rgba(251, 192, 45, 0.4);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--accent-gold-hover);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .btn-outline {
+            border-color: white;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #E5E7EB;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #D1D5DB;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-green {
+            background-color: #E8F5E9;
+            color: var(--primary-color);
+        }
+
+        .badge-gold {
+            background-color: #FFFDE7;
+            color: #F57F17;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+       3. NAVIGATION BAR
+       ========================================================================== */
+        .demo-banner {
+            background-color: #1E293B;
+            color: #F8FAFC;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-banner span {
+            background: var(--accent-gold);
+            color: black;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-brand img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:not(.btn):hover {
+            color: var(--primary-color);
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+        }
+
+        /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            background: linear-gradient(135deg, rgba(27, 94, 32, 0.85) 0%, rgba(0, 0, 0, 0.75) 100%),
+                url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            z-index: 2;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 35px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+       5. FEATURED / STATS SECTION
+       ========================================================================== */
+        .stats-bar {
+            background: white;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            padding: 30px;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+       6. ABOUT & DAILY DEVOTION SECTION
+       ========================================================================== */
+        .section-padding {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img-wrapper {
+            position: relative;
+        }
+
+        .about-img-wrapper img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .about-img-card {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border-left: 5px solid var(--accent-gold);
+            max-width: 260px;
+        }
+
+        .verse-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 6px solid var(--primary-color);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            margin-top: 25px;
+        }
+
+        .verse-box blockquote {
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #1B5E20;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+       7. YOUTH PROGRAMS SECTION
+       ========================================================================== */
+        .programs-bg {
+            background-color: #F3F4F6;
+            padding: 90px 20px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .program-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .program-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .program-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .program-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* ==========================================================================
+       8. UPCOMING EVENTS SECTION
+       ========================================================================== */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .event-date {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 90px;
+            font-weight: 700;
+        }
+
+        .event-date span:first-child {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .event-date span:last-child {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .event-details {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .event-details h3 {
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+        }
+
+        .event-details p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        /* ==========================================================================
+       9. CALL TO ACTION (CTA) BANNER
+       ========================================================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1B5E20 100%),
+                url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1200&q=80') center/cover blend-mode overlay;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-top: 40px;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .cta-banner p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ==========================================================================
+       10. FOOTER
+       ========================================================================== */
+        footer {
+            background: #111827;
+            color: #9CA3AF;
+            padding: 60px 20px 20px 20px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid #374151;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+       11. RESPONSIVE DESIGN (MOBILE & TABLETS)
+       ========================================================================== */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img-card {
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 25px;
+                box-shadow: var(--shadow-lg);
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-auth {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .nav-auth .btn {
+                width: 100%;
+            }
+
+            .stats-bar {
+                margin-top: 20px;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="demo-banner">DEMO MODE: Prototype using LocalStorage engine</div>
 
+    <!-- Demo Notice Banner -->
+    <div class="demo-banner">
+        <span>PROTOTYPE ENGINE</span> Seventh-day Adventist Youth Ministry Web Portal
+    </div>
+
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="nav-brand">SDA YOUTH</div>
-        <button class="hamburger" aria-label="Toggle Navigation">☰</button>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
+        <a href="homepage.html" class="nav-brand">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+            SDA YOUTH
+        </a>
+
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Menu">☰</button>
+
+        <ul class="nav-links" id="navMenu">
+            <li><a href="homepage.html">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="bible.html">Bible Quiz</a></li>
-            <li><a href="finance.html">Finances</a></li>
-            <li><a href="login.html" class="btn btn-secondary">Login</a></li>
-            <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="finance.html">Financial Transparency</a></li>
+            <li class="nav-auth">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </li>
         </ul>
     </nav>
 
-    <header
-        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=80') center/cover; color: white; padding: 100px 20px; text-align: center;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 15px;">Growing in Faith. Living with Purpose. Serving Others.</h1>
-        <p style="max-width: 650px; margin: 0 auto 25px auto; font-size: 1.1rem;">A modern digital community designed to
-            help SDA youth grow spiritually, connect with others, participate in ministry, and serve their communities.
-        </p>
-        <div style="gap: 15px; display: flex; justify-content: center;">
-            <a href="signup.html" class="btn btn-primary">JOIN THE COMMUNITY</a>
-            <a href="#about" class="btn btn-secondary">EXPLORE</a>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Adventist Youth Ministries</div>
+            <h1>Growing in Faith. Living with Purpose. Serving Others.</h1>
+            <p>A modern digital community designed to help Adventist youth grow spiritually, connect with peers,
+                participate in active ministry, and serve local communities.</p>
+            <div class="hero-btns">
+                <a href="signup.html" class="btn btn-gold">JOIN THE COMMUNITY</a>
+                <a href="login.html" class="btn btn-outline">MEMBER LOGIN</a>
+            </div>
         </div>
     </header>
 
-    <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
-        <section id="about" class="card">
-            <h2>Daily Bible Verse</h2>
-            <blockquote style="font-style: italic; color: var(--primary-color); font-size: 1.2rem; margin: 15px 0;">
-                "Don't let anyone look down on you because you are young, but set an example for the believers in
-                speech, in conduct, in love, in faith and in purity."
-            </blockquote>
-            <p>— 1 Timothy 4:12 (NIV)</p>
-        </section>
+    <!-- Quick Stats Bar -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <h3>150+</h3>
+            <p>Active Youth Members</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Financial Transparency</p>
+        </div>
+        <div class="stat-item">
+            <h3>24/7</h3>
+            <p>Prayer & Devotional Wall</p>
+        </div>
+        <div class="stat-item">
+            <h3>Weekly</h3>
+            <p>AY & Pathfinder Programs</p>
+        </div>
+    </section>
 
-        <section class="card">
-            <h2>Youth Programs</h2>
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
-                <div style="background: var(--background-light); padding: 15px; border-radius: 8px;">
-                    <h3>Adventist Youth (AY)</h3>
-                    <p>Sabbath afternoon fellowship, leadership development, and spiritual discussions.</p>
-                </div>
-                <div style="background: var(--background-light); padding: 15px; border-radius: 8px;">
-                    <h3>Ambassadors</h3>
-                    <p>Targeted discipleship and community service for senior youth and young adults.</p>
-                </div>
-                <div style="background: var(--background-light); padding: 15px; border-radius: 8px;">
-                    <h3>Public Campus Ministry</h3>
-                    <p>Connecting and building faith communities for students on university campuses.</p>
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="about-grid">
+            <div class="about-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
+                    alt="SDA Youth Fellowship Group">
+                <div class="about-img-card">
+                    <span class="badge badge-gold">Youth Aim</span>
+                    <p style="font-weight: 700; margin-top: 5px;">"The Advent Message to All the World in This
+                        Generation."</p>
                 </div>
             </div>
-        </section>
-    </main>
+            <div>
+                <span class="badge badge-green">About Our Ministry</span>
+                <h2 style="font-size: 2.2rem; margin: 15px 0; color: var(--text-dark);">Empowering the Next Generation
+                    of Believers</h2>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">
+                    The Seventh-day Adventist Youth Ministry is dedicated to leading young people into a personal,
+                    saving relationship with Jesus Christ and helping them develop into mature, active disciples.
+                </p>
+                <p style="color: var(--text-muted);">
+                    Through interactive Bible studies, weekly Sabbath AY meetings, Pathfinder honor classes, outdoor
+                    camping, and community outreach, we build strong Christian leaders.
+                </p>
 
-    <script src="js/main.js"></script>
+                <div class="verse-box">
+                    <blockquote>"Don't let anyone look down on you because you are young, but set an example for the
+                        believers in speech, in conduct, in love, in faith and in purity."</blockquote>
+                    <p style="font-weight: bold; color: var(--primary-hover);">— 1 Timothy 4:12 (NIV)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="programs-bg">
+        <div class="section-title">
+            <h2>Youth Ministry Programs</h2>
+            <p>Tailored leadership, spiritual growth, and service tracks for every age group.</p>
+        </div>
+
+        <div class="programs-grid">
+            <!-- Program 1 -->
+            <div class="program-card">
+                <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=600&q=80"
+                    alt="Adventist Youth AY">
+                <div class="program-content">
+                    <div>
+                        <span class="badge badge-green">Senior Youth</span>
+                        <h3>Adventist Youth (AY)</h3>
+                        <p>Sabbath afternoon fellowship featuring dynamic Bible quizzes, group discussions, musical
+                            presentations, and life-application workshops.</p>
+                    </div>
+                    <a href="signup.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Get
+                        Involved</a>
+                </div>
+            </div>
+
+            <!-- Program 2 -->
+            <div class="program-card">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80"
+                    alt="Pathfinders Camping">
+                <div class="program-content">
+                    <div>
+                        <span class="badge badge-gold">Ages 10-15</span>
+                        <h3>Pathfinder Club</h3>
+                        <p>Outdoor camping, wilderness survival skills, honor awards, marching drill routines, and deep
+                            spiritual discipline for young teens.</p>
+                    </div>
+                    <a href="signup.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Join
+                        Pathfinders</a>
+                </div>
+            </div>
+
+            <!-- Program 3 -->
+            <div class="program-card">
+                <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=600&q=80"
+                    alt="Community Outreach">
+                <div class="program-content">
+                    <div>
+                        <span class="badge badge-green">Global Youth Day</span>
+                        <h3>Compassion & Outreach</h3>
+                        <p>Putting faith into action through local food drives, hospital visitations, street witnessing,
+                            and Global Youth Day initiatives.</p>
+                    </div>
+                    <a href="signup.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Join
+                        Outreach</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section id="events" class="section-padding">
+        <div class="section-title">
+            <h2>Upcoming Events</h2>
+            <p>Mark your calendar for our upcoming retreats, rallies, and special Sabbath programs.</p>
+        </div>
+
+        <div class="events-grid">
+            <!-- Event 1 -->
+            <div class="event-card">
+                <div class="event-date">
+                    <span>12</span>
+                    <span>SEP</span>
+                </div>
+                <div class="event-details">
+                    <span class="badge badge-gold">Youth Sabbath</span>
+                    <h3>Annual Youth Evangelism Rally</h3>
+                    <p>📍 Main Sanctuary & Online | 09:00 AM</p>
+                    <a href="signup.html"
+                        style="color: var(--primary-color); font-weight: bold; font-size: 0.9rem;">Register to Attend
+                        →</a>
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="event-card">
+                <div class="event-date">
+                    <span>25</span>
+                    <span>SEP</span>
+                </div>
+                <div class="event-details">
+                    <span class="badge badge-green">Outdoors</span>
+                    <h3>Pathfinder Honors Campout</h3>
+                    <p>📍 Green Valley Campgrounds | 3 Days</p>
+                    <a href="signup.html"
+                        style="color: var(--primary-color); font-weight: bold; font-size: 0.9rem;">Register to Attend
+                        →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="cta-banner">
+        <h2>Ready to Walk This Journey With Us?</h2>
+        <p>Sign up today to join prayer groups, access daily devotions, track youth financial contributions
+            transparently, and take part in active challenges.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="signup.html" class="btn btn-gold">CREATE AN ACCOUNT</a>
+            <a href="login.html" class="btn btn-outline">LOG IN NOW</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 style="color: var(--secondary-color);">SDA YOUTH MINISTRY</h4>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Proclaiming the everlasting gospel through vibrant youth
+                    engagement, fellowship, and service.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="finance.html">Financial Transparency</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Spiritual Hub</h4>
+                <ul>
+                    <li><a href="bible.html">Daily Devotion</a></li>
+                    <li><a href="bible.html">Bible Quiz</a></li>
+                    <li><a href="prayer.html">Prayer Requests</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p style="font-size: 0.9rem;">Email: youth@sdayouth.org</p>
+                <p style="font-size: 0.9rem; margin-top: 5px;">Phone: +254 700 000 000</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Seventh-day Adventist Youth Ministry. All rights reserved. Built with pure HTML, CSS &
+                JavaScript.</p>
+        </div>
+    </footer>
+
+    <!-- Vanilla JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Navigation Toggle
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
+
+            if (hamburgerBtn && navMenu) {
+                hamburgerBtn.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+
+            // Automatically check login state from LocalStorage
+            const currentUser = JSON.parse(localStorage.getItem('sda_currentUser'));
+            if (currentUser && navMenu) {
+                // Swap auth buttons with a direct Dashboard link if already logged in
+                const authLi = document.querySelector('.nav-auth');
+                if (authLi) {
+                    authLi.innerHTML = `
+            <a href="dashboard.html" class="btn btn-primary">Go to Dashboard (${currentUser.name})</a>
+          `;
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
